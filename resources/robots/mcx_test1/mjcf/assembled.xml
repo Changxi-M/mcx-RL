@@ -1,0 +1,112 @@
+<mujoco model="assembled">
+  <compiler angle="radian" autolimits="true" eulerseq="zyx"/>
+    <option timestep="0.001" gravity="0 0 -9.81" iterations="50" solver='PGS'>
+    <flag sensornoise="enable" frictionloss="enable" />
+    </option>
+
+    <size njmax="500" nconmax="100"/>
+
+  <visual>
+    <quality shadowsize="4096" />
+    <map znear='0.05' />
+  </visual>
+  <default>
+    <joint limited='true'/>
+    <motor ctrllimited="true"/>
+    <geom condim="4" contype="1" friction="0.9 0.2 0.2" solref="0.001 2" conaffinity="15"/>
+    <equality solref="0.001 1" />
+    <default class='leg_joint_param'>
+      <joint limited='true' damping="0.01" frictionloss="0.01" armature="0.01"/>
+    </default>
+  </default>
+
+  <asset>
+    <mesh name="base_link" file="../meshes/base_link.STL"/>
+    <mesh name="L_Link1" file="../meshes/L_Link1.STL"/>
+    <mesh name="L_Link2" file="../meshes/L_Link2.STL"/>
+    <mesh name="L_Link3" file="../meshes/L_Link3.STL"/>
+    <mesh name="L_Link4" file="../meshes/L_Link4.STL"/>
+    <mesh name="R_Link1" file="../meshes/R_Link1.STL"/>
+    <mesh name="R_Link2" file="../meshes/R_Link2.STL"/>
+    <mesh name="R_Link3" file="../meshes/R_Link3.STL"/>
+    <mesh name="R_Link4" file="../meshes/R_Link4.STL"/>
+    <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="512" height="512" mark="cross" markrgb=".8 .8 .8" />
+    <material name="matplane" reflectance="0.3" texture="texplane" texrepeat="1 1" texuniform="true" />   
+  </asset>
+
+  <worldbody>
+    <light directional="true" diffuse=".4 .4 .4" specular="0.1 0.1 0.1" pos="0 0 5.0" dir="0 0 -1" castshadow="false"/>
+    <light directional="true" diffuse=".6 .6 .6" specular="0.2 0.2 0.2" pos="0 0 4" dir="0 0 -1"/>
+    <geom name="ground" type="plane" size="0 0 1" pos="0 0 0" quat="1 0 0 0" material="matplane" condim="1" conaffinity='15'/>
+    <body name="base_link" pos="0 0 0.94">
+      <inertial pos="-0.032172 0.0001059 0.0056909" quat="0.682283 0.187001 0.578755 0.405665" mass="9.97819" diaginertia="0.210133 0.119893 0.118847"/>
+      <joint name="floating_base_joint" type="free" limited="false"/>
+      <site name='imu' pos="0 0 0" size="0.01" quat="1 0 0 0" />
+      <geom type="mesh" contype="0" conaffinity="15" group="1" density="0" rgba="0.75294 0.75294 0.75294 1" mesh="base_link"/>
+      <!-- <geom size="0.175 0.225 0.2" type="box" rgba="0.75294 0.75294 0.75294 1"/> -->
+      <body name="L_Link1" pos="-0.087088 0.12 -0.11" quat="0.499998 0.5 0.500002 0.5">
+        <inertial pos="0.0624613 -0.0006767 0.0881088" quat="0.68735 0.67185 0.210698 0.178253" mass="2.5445" diaginertia="0.00758269 0.00717229 0.00409432"/>
+        <joint name="L_joint1" pos="0 0 0" axis="0 0 -1" range="-0.209 0.209" />
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="L_Link1"/>
+        <body name="L_Link2" pos="0.02725 0 0.0955" quat="0.707105 0 -0.707108 0">
+          <inertial pos="-0.0067785 -0.0794517 0.0653408" quat="0.85248 0.00499911 0.0897058 0.514982" mass="3.21273" diaginertia="0.0711446 0.0707561 0.00635158"/>
+          <joint name="L_joint2" pos="0 0 0" axis="0 0 -1" range="-1.5708 0.523"/>
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="L_Link2"/>
+          <body name="L_Link3" pos="-0.072567 -0.41368 0.02795">
+            <inertial pos="0.0185927 -0.122414 -0.0014511" quat="0.988022 0.0266267 -0.0355837 0.147777" mass="1.58179" diaginertia="0.0117756 0.0112556 0.00149455"/>
+            <joint name="L_joint3" pos="0 0 0" axis="0 0 -1" range="0 3.14"/>
+            <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="L_Link3"/>
+            <body name="L_Link4" pos="0.048841 -0.34663 -0.0007">
+              <inertial pos="0.0255251 -0.0341688 0.0002123" quat="0.494118 0.482974 -0.493565 0.528183" mass="0.400288" diaginertia="0.00163388 0.00152111 0.000252416"/>
+              <joint name="L_joint4" pos="0 0 0" axis="0 0 1" range="-0.8 1.2"/>
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="L_Link4"/>
+              <geom type="mesh" rgba="1 1 1 1" mesh="L_Link4" conaffinity='15'/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="R_Link1" pos="-0.087088 -0.12 -0.11" quat="0.499998 0.5 0.500002 0.5">
+        <inertial pos="-0.0624613 -0.0006767 0.0881088" quat="0.688301 0.671058 -0.212637 -0.175235" mass="2.55475" diaginertia="0.00763152 0.0071959 0.00411147"/>
+        <joint name="R_joint1" pos="0 0 0" axis="0 0 1" range="-0.209 0.209"/>
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="R_Link1"/>
+        <body name="R_Link2" pos="-0.02725 0 0.0955" quat="0.707105 0 -0.707108 0">
+          <inertial pos="-0.0067785 -0.0794517 -0.0653408" quat="0.508367 -0.0903285 -0.00476625 0.856377" mass="3.22299" diaginertia="0.0712879 0.0709144 0.00637558"/>
+          <joint name="R_joint2" pos="0 0 0" axis="0 0 -1" range="-1.5708 0.523" />
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="R_Link2"/>
+          <body name="R_Link3" pos="-0.072567 -0.41368 -0.02795">
+            <inertial pos="0.0185927 -0.122414 0.0014511" quat="0.988027 0.0268176 0.0355189 -0.147724" mass="1.5812" diaginertia="0.0117333 0.0112138 0.00149407"/>
+            <joint name="R_joint3" pos="0 0 0" axis="0 0 -1" range="0 3.14" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="R_Link3"/>
+            <body name="R_Link4" pos="0.048841 -0.34663 0.0007">
+              <inertial pos="0.0255251 -0.0341688 -0.0002123" quat="0.528183 0.493565 -0.482974 0.494118" mass="0.400288" diaginertia="0.00163388 0.00152111 0.000252416"/>
+              <joint name="R_joint4" pos="0 0 0" axis="0 0 1" range="-0.8 1.2" />
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="R_Link4"/>
+              <geom type="mesh" rgba="1 1 1 1" mesh="R_Link4" conaffinity='15'/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <motor name="M1" joint="L_joint1" gear="1" ctrllimited="true" ctrlrange="-20 20" />
+    <motor name="M2" joint="L_joint2" gear="1" ctrllimited="true" ctrlrange="-40 40" />
+    <motor name="M3" joint="L_joint3" gear="1" ctrllimited="true" ctrlrange="-40 40" />
+    <motor name="M4" joint="L_joint4" gear="1" ctrllimited="true" ctrlrange="-40 40" />
+    <motor name="M5" joint="R_joint1" gear="1" ctrllimited="true" ctrlrange="-20 20" />
+    <motor name="M6" joint="R_joint2" gear="1" ctrllimited="true" ctrlrange="-40 40" />
+    <motor name="M7" joint="R_joint3" gear="1" ctrllimited="true" ctrlrange="-40 40" />
+    <motor name="M8" joint="R_joint4" gear="1" ctrllimited="true" ctrlrange="-40 40" />
+  </actuator>
+
+  <sensor>
+    <framequat     name='orientation' objtype='site' noise='0.001' objname='imu'/>
+    <framepos     name='position' objtype='site' noise='0.001' objname='imu'/>
+    <gyro          name='angular-velocity'    site='imu' noise='0.005' cutoff='34.9'/>
+    <velocimeter   name='linear-velocity'     site='imu' noise='0.001' cutoff='30'/>
+    <accelerometer name='linear-acceleration' site='imu' noise='0.005' cutoff='157'/>
+    <magnetometer  name='magnetometer'        site='imu'/>
+  
+  </sensor>
+
+</mujoco>
