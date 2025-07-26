@@ -42,8 +42,6 @@ from .custom.hubot_config import HuBotLCfg, HuBotLCfgPPO
 from .custom.hubot_env import HuBotLFreeEnv
 from .mcxRobot.mcxRobot_sym_config import mcxRobotCfg_sym, mcxRobotCfgPPO_sym
 from .mcxRobot.mcxRobot_sym_env import mcxRobotFreeEnv_sym
-from .mcxRobot_rand.mcxRobot_rand_config import mcxRobotCfg_rand, mcxRobotCfgPPO_rand
-from .mcxRobot_rand.mcxRobot_rand_env import mcxRobotRandFreeEnv
 
 from humanoid.utils.task_registry import task_registry
 
@@ -52,5 +50,4 @@ task_registry.register( "humanoid_ppo", XBotLFreeEnv, XBotLCfg(), XBotLCfgPPO() 
 # task_registry.register( "mcxRobot_ppo", mcxRobotFreeEnv, mcxRobotCfg(), mcxRobotCfgPPO() )
 task_registry.register( "mcxRobot_sym", mcxRobotFreeEnv_sym, mcxRobotCfg_sym(), mcxRobotCfgPPO_sym() )
 task_registry.register( "hubot_ppo", HuBotLFreeEnv, HuBotLCfg(), HuBotLCfgPPO() )
-task_registry.register( "mcxRobot_rand", mcxRobotRandFreeEnv, mcxRobotCfg_rand(), mcxRobotCfgPPO_rand() )
 print("!!!!!!!!!!!!!!!!!!!!!!!!")
