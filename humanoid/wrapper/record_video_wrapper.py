@@ -2,7 +2,7 @@ import os
 from isaacgym import gymapi
 import moviepy.editor as mpy
 import numpy as np
-from engineai_rl_lib.class_operations import (
+from .class_operations import (
     add_instance_properties_and_methods_to_class,
 )
 
