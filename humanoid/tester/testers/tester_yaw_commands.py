@@ -1,5 +1,5 @@
 from .tester_base import TesterTypeBase
-from engineai_rl_lib.command_filter import convert_to_visible_commands
+from .convert_to_visible_commands import convert_to_visible_commands
 
 
 class TesterYawCommands(TesterTypeBase):
